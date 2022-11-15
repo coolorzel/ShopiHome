@@ -15,6 +15,8 @@ class CreateFormHasCategoriesTable extends Migration
     {
         Schema::create('form_has_categories', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('categoryId');
+            $table->bigInteger('formId');
             $table->timestamps();
         });
     }

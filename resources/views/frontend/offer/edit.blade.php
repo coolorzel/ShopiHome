@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'Create offer')
+@section('title', 'Edit offer')
 
 
 @section('content')
@@ -13,22 +13,16 @@
                     <div class="widget welcome-message">
                         <h2><button type="button" class="btn btn-light" onClick="history.back();">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                            </button> Dodawanie oferty </h2>
-                        <h6>
-                            @foreach($cat_id as $item)
-                            {{ $item->content }}
-                            @endforeach
-                        </h6>
-
+                            </button> Edycja oferty </h2>
                     </div>
                     <!-- Edit Personal Info -->
                     <div class="row">
 
                         <div class="col-md-12 offset-md-1 col-lg-12 offset-lg-0">
                             <div class="widget personal-info">
-                                <form action="{{ route('offer.created') }}" method="post" id="add-offer-form">
-                                @method('patch')
-                                @csrf
+                                <form action="{{ route('offer.edited', $offer->id) }}" method="post" id="add-offer-form">
+                                    @method('patch')
+                                    @csrf
                                     <input type="hidden" name="category_id" value="{{ $offer->category_id }}">
                                     <input type="hidden" id="city" name="city" value="{{ $offer->city }}">
                                     <input type="hidden" id="state" name="state" value="{{ $offer->state }}">
@@ -87,76 +81,76 @@
                                     <!-- Tytuł -->
                                     @if(in_array('name', $formhascategory))
                                         <div class="form-group">
-                                        <label for="zip-code">Tytuł</label>
-                                        <input type="text" class="form-control" id="name" name="name" onkeyup="tranSlug()" value="{{ $offer->name }}">
-                                    </div>
+                                            <label for="zip-code">Tytuł</label>
+                                            <input type="text" class="form-control" id="name" name="name" onkeyup="tranSlug()" value="{{ $offer->name }}">
+                                        </div>
                                     @endif
                                     <!-- Slug -->
                                     @if(in_array('slug', $formhascategory))
-                                    <div class="form-group">
-                                        <label for="zip-code">Slug</label>
-                                        <input type="text" class="form-control" id="slug" name="slug" value="{{ $offer->slug }}" disabled>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="zip-code">Slug</label>
+                                            <input type="text" class="form-control" id="slug" name="slug" value="{{ $offer->slug }}" disabled>
+                                        </div>
                                     @endif
 
                                     <div class="form-row">
                                         <!-- Cena wystawienia -->
                                         @if(in_array('regular_rent', $formhascategory))
-                                        <div class="form-group col-md-6">
-                                            <label for="zip-code">Cena wystawienia</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" aria-label="Amount (to the nearest pln)" placeholder="Addon on both side" name="regular_rent" value="{{ $offer->regular_rent }}">
-                                                <span class="input-group-text">PLN</span>
+                                            <div class="form-group col-md-6">
+                                                <label for="zip-code">Cena wystawienia</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" aria-label="Amount (to the nearest pln)" placeholder="Addon on both side" name="regular_rent" value="{{ $offer->regular_rent }}">
+                                                    <span class="input-group-text">PLN</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                         <!-- Kaucja -->
                                         @if(in_array('deposit', $formhascategory))
-                                        <div class="form-group col-md-6">
-                                            <label for="zip-code">Kaucja</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" aria-label="Amount (to the nearest pln)" placeholder="Addon on both side" name="deposit" value="{{ $offer->deposit }}">
-                                                <span class="input-group-text">PLN</span>
+                                            <div class="form-group col-md-6">
+                                                <label for="zip-code">Kaucja</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" aria-label="Amount (to the nearest pln)" placeholder="Addon on both side" name="deposit" value="{{ $offer->deposit }}">
+                                                    <span class="input-group-text">PLN</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
                                     <div class="form-row">
                                         <!-- Pokoje -->
                                         @if(in_array('rooms', $formhascategory))
-                                        <div class="form-group col-md-4">
-                                            <label for="zip-code">Ilość pokoi</label>
-                                            <div class="input-group text-center mb-3 rooms" style="width:130px;">
-                                                <span class="input-group-text decrement-btn">-</span>
-                                                <input type="text" class="form-control text-center" name="rooms" value="@if(empty($offer->rooms))0
+                                            <div class="form-group col-md-4">
+                                                <label for="zip-code">Ilość pokoi</label>
+                                                <div class="input-group text-center mb-3 rooms" style="width:130px;">
+                                                    <span class="input-group-text decrement-btn">-</span>
+                                                    <input type="text" class="form-control text-center" name="rooms" value="@if(empty($offer->rooms))0
 @else{{ $offer->rooms }}@endif">
-                                                <span class="input-group-text increment-btn">+</span>
+                                                    <span class="input-group-text increment-btn">+</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                         <!-- Powierzchnia m2 -->
                                         @if(in_array('surface', $formhascategory))
-                                        <div class="form-group col-md-4">
-                                            <label for="zip-code">Powierzchnia w m<sup>2</sup></label>
-                                            <div class="input-group text-center mb-3 rooms" style="width:130px;">
-                                                <span class="input-group-text decrement-btn">-</span>
-                                                <input type="text" class="form-control text-center" name="surface" value="@if(empty($offer->surface))0
+                                            <div class="form-group col-md-4">
+                                                <label for="zip-code">Powierzchnia w m<sup>2</sup></label>
+                                                <div class="input-group text-center mb-3 rooms" style="width:130px;">
+                                                    <span class="input-group-text decrement-btn">-</span>
+                                                    <input type="text" class="form-control text-center" name="surface" value="@if(empty($offer->surface))0
 @else{{ $offer->surface }}@endif">
-                                                <span class="input-group-text increment-btn">+</span>
+                                                    <span class="input-group-text increment-btn">+</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                         <!-- Działka -->
                                         @if(in_array('land_area', $formhascategory))
-                                        <div class="form-group col-md-4">
-                                            <label for="zip-code">Powierzchnia działki w m<sup>2</sup></label>
-                                            <div class="input-group text-center mb-3 rooms" style="width:130px;">
-                                                <span class="input-group-text decrement-btn">-</span>
-                                                <input type="text" class="form-control text-center" name="land_area" value="@if(empty($offer->land_area))0
+                                            <div class="form-group col-md-4">
+                                                <label for="zip-code">Powierzchnia działki w m<sup>2</sup></label>
+                                                <div class="input-group text-center mb-3 rooms" style="width:130px;">
+                                                    <span class="input-group-text decrement-btn">-</span>
+                                                    <input type="text" class="form-control text-center" name="land_area" value="@if(empty($offer->land_area))0
 @else{{ $offer->land_area }}@endif">
-                                                <span class="input-group-text increment-btn">+</span>
+                                                    <span class="input-group-text increment-btn">+</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
 
@@ -166,7 +160,21 @@
                                         <hr>
 
                                         <div class="form-group">
-                                            <input type="file" class="multiple-files-filepond" name="images_file" id="input_file" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="8">
+                                            <div class="dropzone dropzone-file-area" id="fileUpload">
+                                                <div class="dz-default dz-message">
+                                                    <h3 class="sbold">Drop files here to upload</h3>
+                                                    <span>You can also click to open file browser</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Select the main photo:</h3>
+                                                </div>
+                                                <div class="panel-body" id="uploaded_image">
+
+                                                </div>
+                                            </div>
                                         </div>
                                     @endif
 
@@ -175,17 +183,17 @@
                                     <h3>{{ __('Detailed information') }}</h3>
                                     <hr>
                                     @if(in_array('description', $formhascategory))
-                                    <div class="form-group">
-                                        <label for="zip-code">Opis</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea3" rows="7" name="description">{{ $offer->description }}</textarea>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="zip-code">Opis</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea3" rows="7" name="description">{{ $offer->description }}</textarea>
+                                        </div>
                                     @endif
                                     <!-- Krótki opis -->
                                     @if(in_array('short_description', $formhascategory))
-                                    <div class="form-group">
-                                        <label for="zip-code">Krótki opis</label>
-                                        <input type="text" class="form-control" id="short_description" name="short_description" value="{{ $offer->short_description }}">
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="zip-code">Krótki opis</label>
+                                            <input type="text" class="form-control" id="short_description" name="short_description" value="{{ $offer->short_description }}">
+                                        </div>
                                     @endif
 
                                     <!-- Ogrzewanie -->
@@ -194,15 +202,15 @@
                                         <hr>
                                         <div class="form-row">
                                             @foreach($heating as $item)
-                                            <div class="form-group col-md-4">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="material[{{ $item->name }}]" name="heating[{{ $item->name }}]" value="{{ $item->id }}"
-                                                        {{ in_array($item->id, $heatingOffer)
-                                                                            ? 'checked'
-                                                                            : '' }}>
-                                                    <label class="form-check-label" for="material[{{ $item->name }}]">{{ $item->name }}</label>
+                                                <div class="form-group col-md-4">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="material[{{ $item->name }}]" name="heating[{{ $item->name }}]" value="{{ $item->id }}"
+                                                            {{ in_array($item->id, $heatingOffer)
+                                                                                ? 'checked'
+                                                                                : '' }}>
+                                                        <label class="form-check-label" for="material[{{ $item->name }}]">{{ $item->name }}</label>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     @endif
@@ -298,32 +306,32 @@
                                     @endif
                                     <!-- Identyfikator płatności -->
                                     @if(in_array('payment', $formhascategory))
-                                    <div class="form-group">
-                                        <label for="first-name">Płatność co:</label>
-                                        <select name="payment" id="payment_id" class="form-control" style="width: 100%">
-                                            @foreach($payment as $item)
-                                                <option value="{{ $item->id }}"
-                                                    {{ in_array($item->id, $paymentOffer)
-                                                                ? 'selected'
-                                                                : '' }}>{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="first-name">Płatność co:</label>
+                                            <select name="payment" id="payment_id" class="form-control" style="width: 100%">
+                                                @foreach($payment as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        {{ in_array($item->id, $paymentOffer)
+                                                                    ? 'selected'
+                                                                    : '' }}>{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
                                     <!-- Typ ogłoszenia -->
                                     @if(in_array('typeoffer', $formhascategory))
-                                    <div class="form-group">
-                                        <label for="first-name">Typ oferty:</label>
-                                        <select name="typeoffer" id="payment_id" class="form-control" style="width: 100%">
-                                            <option value="">--{{ __('Please choose an option') }}--</option>
-                                            @foreach($typeoffer as $item)
-                                                <option value="{{ $item->id }}"
-                                                    {{ in_array($item->id, $typeofferOffer)
-                                                                ? 'selected'
-                                                                : '' }}>{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="first-name">Typ oferty:</label>
+                                            <select name="typeoffer" id="payment_id" class="form-control" style="width: 100%">
+                                                <option value="">--{{ __('Please choose an option') }}--</option>
+                                                @foreach($typeoffer as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        {{ in_array($item->id, $typeofferOffer)
+                                                                    ? 'selected'
+                                                                    : '' }}>{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
 
 
@@ -332,18 +340,18 @@
                                         <div class="form-row">
 
                                             @if(in_array('contact_tel', $formhascategory))
-                                            <!-- Kontakt telefoniczny -->
-                                                    <div class="form-group col-md-6">
-                                                        <label for="zip-code">Nr telefonu</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text">+48</span>
-                                                            <input id="phone-mask" type="tel" class="form-control" aria-label="Phone number" placeholder="Enter a phone number" name="contact_tel" value="{{ $offer->contact_tel }}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
-                                                        </div>
+                                                <!-- Kontakt telefoniczny -->
+                                                <div class="form-group col-md-6">
+                                                    <label for="zip-code">Nr telefonu</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">+48</span>
+                                                        <input id="phone-mask" type="tel" class="form-control" aria-label="Phone number" placeholder="Enter a phone number" name="contact_tel" value="{{ $offer->contact_tel }}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
                                                     </div>
+                                                </div>
                                             @endif
 
                                             @if(in_array('contact_email', $formhascategory))
-                                            <!-- contact_email -->
+                                                <!-- contact_email -->
                                                 <div class="form-group col-md-6">
                                                     <label for="zip-code">Adres e'Mail</label>
                                                     <div class="input-group">
@@ -356,14 +364,13 @@
                                     @endif
 
                                     <!-- Submit button -->
-                                    <button name="butt" value="add" class="btn btn-transparent">Dodaj</button>
-                                    <button name="butt" value="save" class="btn btn-transparent">Zapisz</button>
+                                    <button type="submit" name="butt" class="btn btn-transparent">Aktualizuj</button>
 
 
                                 </form>
-<!-- https://css-tricks.com/lets-make-a-form-that-puts-current-location-to-use-in-a-map/
- https://www.youtube.com/watch?v=vOPr5k_SGVA
- - GEOLOKALIZACJA-->
+                                <!-- https://css-tricks.com/lets-make-a-form-that-puts-current-location-to-use-in-a-map/
+                                 https://www.youtube.com/watch?v=vOPr5k_SGVA
+                                 - GEOLOKALIZACJA-->
                             </div>
                         </div>
 
@@ -426,7 +433,7 @@
         function setResultList(parsedResult) {
             resultList.innerHTML = "";
             //for (const marker of currentMarkers) {
-                //map.removeLayer(marker);
+            //map.removeLayer(marker);
             //}
             //map.flyTo(new L.LatLng(20.13847, 1.40625), 2);
             for (const result of parsedResult) {
@@ -533,11 +540,11 @@
                 case '6':   //mieszkanie
                     reset();
                     inputToEnable = ['user_id', 'images_id', 'payment_id', 'typeoffer_id',
-                    'name', 'slug', 'description', 'short_description', 'rooms', 'input_file',
-                    'surface', 'land_area', 'heating', 'media', 'security', 'regular_rent',
-                    'sale_rent', 'deposit', 'charges', 'equipment', 'parking', 'contact_tel',
-                    'featured', 'archivum', 'country', 'voivodeship', 'community', 'city',
-                    'zip_code', 'street', 'house_number', 'apartament_number', 'floor', 'additional_information'];
+                        'name', 'slug', 'description', 'short_description', 'rooms', 'input_file',
+                        'surface', 'land_area', 'heating', 'media', 'security', 'regular_rent',
+                        'sale_rent', 'deposit', 'charges', 'equipment', 'parking', 'contact_tel',
+                        'featured', 'archivum', 'country', 'voivodeship', 'community', 'city',
+                        'zip_code', 'street', 'house_number', 'apartament_number', 'floor', 'additional_information'];
                     $.each(inputToEnable, function( index, value ) {
                         document.getElementById(value).removeAttribute('disabled');
                     });
@@ -583,75 +590,63 @@
         }
     </script>
 
-    <!-- filepond validation -->
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script type="text/javascript">
 
-    <!-- image editor -->
-    <script
-        src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-
-    <script>
-        // register desired plugins...
-        FilePond.registerPlugin(
-            // validates the size of the file...
-            FilePondPluginFileValidateSize,
-            // validates the file type...
-            FilePondPluginFileValidateType,
-
-            // calculates & dds cropping info based on the input image dimensions and the set crop ratio...
-            FilePondPluginImageCrop,
-            // preview the image file type...
-            FilePondPluginImagePreview,
-            // filter the image file
-            FilePondPluginImageFilter,
-            // corrects mobile image orientation...
-            FilePondPluginImageExifOrientation,
-            // calculates & adds resize information...
-            FilePondPluginImageResize,
-            // encodes the file as base64 data
-            FilePondPluginFileEncode,
-        );
-
-        // Filepond: Multiple Files
-        FilePond.create(document.querySelector('.multiple-files-filepond'), {
-            allowImagePreview: true,
-            allowMultiple: true,
-            allowFileEncode: true,
-            required: false,
-            server: {
-                process: {
-                    url: '{{ route('offer.image.process') }}',
-                    method: 'POST',
-                    withCredentials: false,
-                    timeout: 7000,
-                    onload: null,
-                    onerror: null,
-                    ondata: null
-                },
-
-                revert: '{{ route('offer.image.delete') }}',
-                load: (source, load, error, progress, abort, headers) => {
-                    console.log('attempting to load', source);},
-            <!--    load: '/public/assets/uploads/offer/2',-->
-                restore: '{{ route('offer.image.delete') }}',
-                fetch: '/offer/fetch',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+        Dropzone.options.fileUpload = {
+            url: '{{ route('offer.image.process', [$offer->category_id, $offer->id]) }}',
+            autoProcessQueue : true,
+            acceptedFiles : ".png,.jpg,.gif,.bmp,.jpeg",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            files: [
-                @foreach($images as $item)
-                {
-                    source: '/storage/assets/uploads/offer/{{ $item->offer_id }}/{{ $item->name }}',
+            name: 'images_file',
+            init:function(){
+                var submitButton = document.querySelector("#submit-all");
+                myDropzone = this;
+
+                this.on("complete", function(){
+                    if(this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0)
+                    {
+                        var _this = this;
+                        _this.removeAllFiles();
+                    }
+                    load_images();
+                });
+
+            },
+
+        };
+
+        load_images();
+
+        function load_images()
+        {
+            $.ajax({
+                url:"{{ route('offer.image.fetch', [$offer->category_id, $offer->id]) }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                @endforeach
-            ]
+                success:function(data)
+                {
+                    $('#uploaded_image').html(data);
+                }
+            })
+        }
+
+        $(document).on('click', '.remove_image', function(){
+            var name = $(this).attr('id');
+            $.ajax({
+                url:"{{ route('offer.image.delete', [$offer->category_id, $offer->id]) }}",
+                type: 'DELETE',
+                data:{name : name},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    load_images();
+                }
+            })
         });
+
     </script>
 @endsection

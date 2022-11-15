@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class security extends Model
 {
     use HasFactory;
+
+    protected $table = "securities";
+    protected $fillable = [
+        'name',
+    ];
 }

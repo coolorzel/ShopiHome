@@ -15,9 +15,9 @@ class CreateCategoryHasChargesTable extends Migration
     {
         Schema::create('category_has_charges', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('charges_id');
+            $table->timestamps();
         });
     }
 

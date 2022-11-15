@@ -15,9 +15,9 @@ class CreateCategoryHasEquipmentTable extends Migration
     {
         Schema::create('category_has_equipment', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('equipment_id');
+            $table->timestamps();
         });
     }
 

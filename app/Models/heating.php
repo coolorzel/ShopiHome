@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class heating extends Model
 {
     use HasFactory;
+    protected $table = "heatings";
+    protected $fillable = [
+        'name',
+    ];
 }

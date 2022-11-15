@@ -15,9 +15,9 @@ class CreateCategoryHasParkingsTable extends Migration
     {
         Schema::create('category_has_parkings', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('parking_id');
+            $table->timestamps();
         });
     }
 

@@ -17,6 +17,8 @@
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('admin/vendors/iconly/bold.css') }}" >
     <link rel="stylesheet" href="{{ asset('admin/vendors/bootstrap-icons/bootstrap-icons.css') }}" >
+    <!-- Font Awesome -->
+    <link href="{{ url('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('admin/vendors/toastify/toastify.css') }}">
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -109,5 +111,20 @@
 @yield('scripts')
 
 <script src="{{ asset('admin/js/main.js') }}"></script>
+
+<script>
+    @if (count($errors) > 0)
+    @foreach ($errors->all() as $error)
+    Toastify({
+        text: "{{ $error }}",
+        duration: 3000,
+        close:true,
+        gravity:"top",
+        position: "right",
+        backgroundColor: "#ff4343",
+    }).showToast();
+    @endforeach
+    @endif
+</script>
 </body>
 </html>

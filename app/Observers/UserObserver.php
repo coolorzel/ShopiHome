@@ -14,7 +14,14 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->assignRole('user');
+        if(User::count() > 1)
+        {
+            $user->assignRole('user');
+        }
+        else
+        {
+            $user->assignRole('Super Admin');
+        }
     }
 
     /**

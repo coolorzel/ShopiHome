@@ -15,6 +15,7 @@ class CreateSecuritiesTable extends Migration
     {
         Schema::create('securities', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }

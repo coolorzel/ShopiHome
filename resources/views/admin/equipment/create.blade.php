@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
-@section('title', 'Create security')
+@section('title', 'Create equipment')
 
 @section('heading')
-    {{ __('Create new security for site') }}
+    {{ __('Create new equipment for site') }}
 @endsection
 
 @section('description')
-    {{ __('Create security') }}
+    {{ __('Create equipment') }}
 @endsection
 
 @section('navlink')
     {{--<li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>--}}
     <li class="breadcrumb-item"><a href="{{ route('acp.index') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('acp.security') }}">Security</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create security</li>
+    <li class="breadcrumb-item"><a href="{{ route('acp.equipment') }}">Equipment</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create equipment</li>
 @endsection
 
 @section('content')
@@ -24,19 +24,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ __('Create media') }} </h4>
+                            <h4 class="card-title">{{ __('Create equipment') }} </h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.security.created') }}">
+                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.equipment.created') }}">
 
                                     @method('patch')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="form-group">
-                                                <label for="first-name-column">{{ __('Name security') }}</label>
+                                                <label for="first-name-column">{{ __('Name equipment') }}</label>
                                                 <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>

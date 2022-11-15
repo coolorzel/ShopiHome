@@ -15,6 +15,7 @@ class CreateHeatingsTable extends Migration
     {
         Schema::create('heatings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }

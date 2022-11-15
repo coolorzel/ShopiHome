@@ -1,29 +1,29 @@
 @extends('layouts.admin')
 
-@section('title', 'Payment')
+@section('title', 'Charges')
 
 @section('heading')
-    {{ __('Payment') }}
+    {{ __('Charges') }}
 @endsection
 
 @section('description')
-    {{ __('List Payment') }}
+    {{ __('List Charges') }}
 @endsection
 
 @section('navlink')
     {{--<li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>--}}
     <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+    <li class="breadcrumb-item active" aria-current="page">Charges</li>
 @endsection
 
 @section('content')
     <div class="page-content">
         <section class="section">
             <div class="card">
-                @if(Auth::user()->can('ACP-payment-create'))
-                <a href="{{ route('acp.payment.create') }}" class="btn btn-primary">{{ __('Create new payment') }}</a>
+                @if(Auth::user()->can('ACP-charges-create'))
+                <a href="{{ route('acp.charges.create') }}" class="btn btn-primary">{{ __('Create new charges') }}</a>
                 @else
-                    <button class="btn btn-primary" disabled>{{ __('Create new payment') }}</button>
+                    <button class="btn btn-primary" disabled>{{ __('Create new charges') }}</button>
                 @endif
                 <div class="card-header">
                     Simple Datatable
@@ -39,18 +39,18 @@
                         </thead>
                         <tbody>
 
-                        @foreach($payments as $item)
+                        @foreach($charges as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                        @if(Auth::user()->can('ACP-payment-edit'))
-                                        <a href="{{ route('acp.payment.edit', $item->id) }}" type="button" class="btn btn-outline-info">Edit</a>
+                                        @if(Auth::user()->can('ACP-charges-edit'))
+                                        <a href="{{ route('acp.charges.edit', $item->id) }}" type="button" class="btn btn-outline-info">Edit</a>
                                         @else
                                             <button class="btn btn-outline-info" disabled>Edit</button>
                                         @endif
-                                        @if(Auth::user()->can('ACP-payment-edit') && Auth::user()->can('ACP-payment-delete'))
+                                        @if(Auth::user()->can('ACP-charges-edit') && Auth::user()->can('ACP-charges-delete'))
                                             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#danger{{ $item->id }}">Delete</button>
                                             @else
                                         <button class="btn btn-outline-danger" disabled>Delete</button>
@@ -67,22 +67,22 @@
                                     <div class="modal-content">
                                         <div class="modal-header bg-danger">
                                             <h5 class="modal-title white" id="myModalLabel120">
-                                                {{ __('Delete payment') }}
+                                                {{ __('Delete charges') }}
                                             </h5>
                                             <button type="button" class="close"
                                                     data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
-                                        <form method="post" action="{{ route('acp.payment.delete', $item->id) }}">
+                                        <form method="post" action="{{ route('acp.charges.delete', $item->id) }}">
                                             @method('patch')
                                             @csrf
                                             <div class="modal-body">
-                                                {{ __('Payment') }} <b>{{$item->name}}</b> {{ __('will be deleted and cannot be restored.') }}
+                                                {{ __('Charges') }} <b>{{$item->name}}</b> {{ __('will be deleted and cannot be restored.') }}
 
                                                 <hr>
                                                 <div class="form-group row">
-                                                    <label for="IsActive{{$item->id}}" class="col-md-11 col-form-label">Confim delete payment</label>
+                                                    <label for="IsActive{{$item->id}}" class="col-md-11 col-form-label">Confim delete charges</label>
                                                     <div class="form-check col-md-1">
                                                         <input class="form-check-input" type="checkbox" value="true" id="IsActive{{$item->id}}" name="IsActive{{$item->id}}">
                                                     </div>
@@ -126,7 +126,7 @@
         $(function () {
             $('[data-toggle="popover"]').popover()
         })
-        @foreach($payments as $item)
+        @foreach($charges as $item)
             $('#deleteActive{{$item->id}}').prop("disabled", true);
             $('#IsActive{{$item->id}}').on("change",function(){
                 if($('#IsActive{{$item->id}}:checked').length>0)

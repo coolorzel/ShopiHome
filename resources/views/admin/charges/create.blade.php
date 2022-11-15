@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
-@section('title', 'Create payment')
+@section('title', 'Create charges')
 
 @section('heading')
-    {{ __('Create new payment for site') }}
+    {{ __('Create new charges for site') }}
 @endsection
 
 @section('description')
-    {{ __('Create payment') }}
+    {{ __('Create charges') }}
 @endsection
 
 @section('navlink')
     {{--<li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>--}}
     <li class="breadcrumb-item"><a href="{{ route('acp.index') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('acp.payment') }}">Payment</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create payment</li>
+    <li class="breadcrumb-item"><a href="{{ route('acp.charges') }}">Charges</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create charges</li>
 @endsection
 
 @section('content')
@@ -24,19 +24,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ __('Create payment') }} </h4>
+                            <h4 class="card-title">{{ __('Create charges') }} </h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.payment.created') }}">
+                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.charges.created') }}">
 
                                     @method('patch')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="form-group">
-                                                <label for="first-name-column">{{ __('Name payment') }}</label>
+                                                <label for="first-name-column">{{ __('Name charges') }}</label>
                                                 <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>

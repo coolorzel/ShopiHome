@@ -36,7 +36,14 @@
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="form-group">
-                                                <label for="first-name-column">{{ __('Name typeoffer') }}</label>
+                                                <label for="first-name-column">{{ __('Name offer') }}</label>
+                                                <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
+                                                @if ($errors->has('name'))
+                                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="first-name-column">{{ __('Name offer') }}</label>
                                                 <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>

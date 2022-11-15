@@ -15,10 +15,16 @@ class ACPUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role_or_permission:admin']);
+        $this->middleware(['permission:ACP-user-list-view']);
     }
 
-    public function edit_user(User $user)
+    public function index()
+    {
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
+
+    public function edit(User $user)
     {
         return view ('admin.user.edit', [
             'user' => $user,
@@ -27,7 +33,7 @@ class ACPUserController extends Controller
         ]);
     }
 
-    public function update_user(User $user, UpdateUserRequest $request)
+    public function update(User $user, UpdateUserRequest $request)
     {
 
         $user->update($request->validated());
@@ -37,7 +43,7 @@ class ACPUserController extends Controller
         return redirect()->route('acp.users')->with('success', __('User updated successfully.'));
     }
 
-    public function update_user_avatar(User $user, Request $request)
+    public function update_avatar(User $user, Request $request)
     {
         $user = request()->route('user');
         // code
@@ -59,7 +65,7 @@ class ACPUserController extends Controller
         return redirect()->back()->with('warning', __('You do not select file image.'));
     }
 
-    public function update_user_password(User $user, UpdateUserPasswordRequest $request)
+    public function update_password(User $user, UpdateUserPasswordRequest $request)
     {
         if(isset($request->IsActiveCheck) && !empty($request->IsActiveCheck))
         {
@@ -82,6 +88,15 @@ class ACPUserController extends Controller
             return redirect()->route('acp.users')->with('success', __('User deleted successfully.'));
         }
         return redirect()->route('acp.users')->with('warning', __('Error deleted user.'.$user->email));
+    }
+
+    public function view(User $user)
+    {
+        return view ('admin.user.view', [
+            'user' => $user,
+            'userRole' => $user->roles->pluck('name')->toArray(),
+            'roles' => Role::latest()->get()
+        ]);
     }
 
 }

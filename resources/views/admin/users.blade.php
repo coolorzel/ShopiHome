@@ -49,12 +49,24 @@
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                            <a href="{{ route('acp.user.edit', $item->id) }}" type="button" class="btn btn-outline-info">Edit</a>
-                                            <a type="button" class="btn btn-primary">View</a>
-                                            @if($item->id == Auth::user()->id)
-                                                <button type="button" class="btn btn-outline-danger" disabled>Delete</button>
+                                            @if(Auth::user()->can('ACP-user-edit'))
+                                                <a href="{{ route('acp.user.edit', $item->id) }}" type="button" class="btn btn-outline-info">Edit</a>
                                             @else
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#danger">Delete</button>
+                                                <button href="#" type="button" class="btn btn-outline-info" disabled>Edit</button>
+                                            @endif
+                                            @if(Auth::user()->can('ACP-user-view'))
+                                                    <a href="{{ route('acp.user.view', $item->id) }}" type="button" class="btn btn-primary">View</a>
+                                                @else
+                                                    <button type="button" class="btn btn-primary" disabled>View</button>
+                                            @endif
+                                            @if(Auth::user()->can('ACP-user-delete') && Auth::user()->can('ACP-user-edit'))
+                                                @if($item->id == Auth::user()->id)
+                                                    <button type="button" class="btn btn-outline-danger" disabled>Delete</button>
+                                                @else
+                                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#danger">Delete</button>
+                                                @endif
+                                            @else
+                                                <button type="button" class="btn btn-outline-danger" disabled>Delete</button>
                                             @endif
                                         </div>
                                     </td>
@@ -126,5 +138,13 @@
         $(function () {
             $('[data-toggle="popover"]').popover()
         })
+
+        $('#deleteActive').prop("disabled", true);
+        $('#IsActive').on("change",function(){
+            if($('#IsActive:checked').length>0)
+                $('#deleteActive').prop("disabled",false);
+            else
+                $('#deleteActive').prop("disabled",true);
+        });
     </script>
 @endsection

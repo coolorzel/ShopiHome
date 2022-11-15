@@ -15,9 +15,9 @@ class CreateCategoryHasMediaTable extends Migration
     {
         Schema::create('category_has_media', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('media_id');
+            $table->timestamps();
         });
     }
 

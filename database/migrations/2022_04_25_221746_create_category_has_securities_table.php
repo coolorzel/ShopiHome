@@ -15,9 +15,9 @@ class CreateCategoryHasSecuritiesTable extends Migration
     {
         Schema::create('category_has_securities', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('security_id');
+            $table->timestamps();
         });
     }
 

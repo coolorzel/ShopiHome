@@ -29,6 +29,7 @@ class FormCategory extends Controller
     {
         $formcategory = new CategoryForm();
         $formcategory->name = $request->input('name');
+        $formcategory->type = $request->input('type');
         $formcategory->save();
         return redirect()->route('acp.formcategory')->with('success', 'Created formcategory successfull');
     }
@@ -43,6 +44,7 @@ class FormCategory extends Controller
     {
         $formcategory = CategoryForm::find($formcategory);
         $formcategory->name = $request->input('name');
+        $formcategory->type = $request->input('type');
         $formcategory->update();
         return redirect()->route('acp.formcategory')->with('success', 'Update formcategory successfull');
     }

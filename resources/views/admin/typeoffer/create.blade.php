@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
-@section('title', 'Create payment')
+@section('title', 'Create typeoffer')
 
 @section('heading')
     {{ __('Create new payment for site') }}
 @endsection
 
 @section('description')
-    {{ __('Create payment') }}
+    {{ __('Create typeoffer') }}
 @endsection
 
 @section('navlink')
     {{--<li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>--}}
     <li class="breadcrumb-item"><a href="{{ route('acp.index') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('acp.payment') }}">Payment</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create payment</li>
+    <li class="breadcrumb-item"><a href="{{ route('acp.typeoffer') }}">Typeoffer</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create typeoffer</li>
 @endsection
 
 @section('content')
@@ -24,19 +24,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ __('Create payment') }} </h4>
+                            <h4 class="card-title">{{ __('Create typeoffer') }} </h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.payment.created') }}">
+                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.typeoffer.created') }}">
 
                                     @method('patch')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="form-group">
-                                                <label for="first-name-column">{{ __('Name payment') }}</label>
+                                                <label for="first-name-column">{{ __('Name typeoffer') }}</label>
                                                 <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>

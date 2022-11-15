@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
-@section('title', 'Create charges')
+@section('title', 'Create heating')
 
 @section('heading')
-    {{ __('Create new charges for site') }}
+    {{ __('Create new heating for site') }}
 @endsection
 
 @section('description')
-    {{ __('Create charges') }}
+    {{ __('Create heating') }}
 @endsection
 
 @section('navlink')
     {{--<li class="breadcrumb-item active" aria-current="page">{{ __('Dashboard') }}</li>--}}
     <li class="breadcrumb-item"><a href="{{ route('acp.index') }}">{{ __('Dashboard') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('acp.charges') }}">Charges</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create charges</li>
+    <li class="breadcrumb-item"><a href="{{ route('acp.heating') }}">Heating</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create heating</li>
 @endsection
 
 @section('content')
@@ -24,19 +24,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ __('Create charges') }} </h4>
+                            <h4 class="card-title">{{ __('Create heating') }} </h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.charges.created') }}">
+                                <form method="post"  enctype="multipart/form-data" class="form" action="{{ route('acp.heating.created') }}">
 
                                     @method('patch')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="form-group">
-                                                <label for="first-name-column">{{ __('Name charges') }}</label>
+                                                <label for="first-name-column">{{ __('Name heating') }}</label>
                                                 <input type="text" id="first-name-column" class="form-control" value="{{ old('name') }}" name="name">
                                                 @if ($errors->has('name'))
                                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>

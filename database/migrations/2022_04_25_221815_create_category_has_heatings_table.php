@@ -15,9 +15,9 @@ class CreateCategoryHasHeatingsTable extends Migration
     {
         Schema::create('category_has_heatings', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('heating_id');
+            $table->timestamps();
         });
     }
 

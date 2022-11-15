@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryForm extends Model
 {
     use HasFactory;
+
+    protected $table = "category_forms";
+    protected $fillable = [
+        'name',
+        'type',
+    ];
 }

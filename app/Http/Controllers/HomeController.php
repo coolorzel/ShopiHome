@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth'); // Ta linijka kodu w __construct odpowiada za cały controller i daje dostęp tylko dla zalogowanych.
     }
 
     /**

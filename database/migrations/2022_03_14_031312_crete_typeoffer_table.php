@@ -15,6 +15,7 @@ class CreteTypeofferTable extends Migration
     {
         Schema::create('typeoffer', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }
